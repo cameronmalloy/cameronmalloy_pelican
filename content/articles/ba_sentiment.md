@@ -12,13 +12,15 @@ Summary: What is the overall sentiment of the bay area? What is the distribution
 
 The San Francisco Bay Area is home to a very diverse population. There are many different people from different racial profiles.
 
-<figure markdown="span">
+<center>
+<figure markdown="span" id="ba_race_demos">
 ![img not found]({static}/assets/ba_sentiment_assets/ba_race_demos.jpg){}
-<figcaption>
+</figure>
+</center>
+<figcaption markdown="span">
 Data taken from <http://www.bayareacensus.ca.gov/bayarea.htm>
 Original data is from the *2010 United States Census Summary File 1*. United States Census Bureau
 </figcaption>
-</figure>
 
 What's more interesting is that individuals of the same race tend to live around each other. The reasons behind this could be due to a multitude of reasons. One may be a want to be near social connections. Another may be housing, employment, and police discrimination, separating races.
 
@@ -27,12 +29,12 @@ What's more interesting is that individuals of the same race tend to live around
 <center>
 <figure markdown="span" id="ba_race_map">
 ![img not found]({static}/assets/ba_sentiment_assets/ba_race_map.png){}
-<figcaption>
+</figure>
+</center>
+<figcaption markdown="span">
 Data from the *2010 United States Census Summary File 1*. United States Census Bureau. Each dot is 25 people: <span id="red_color">White</span>, <span id="blue_color">African American</span>, <span id="green_color">Asian</span>, <span id="orange_color">Hispanic</span>, or Other (yellow)
 Map by Eric Fischer: <https://www.flickr.com/photos/walkingsf/5560477152/>
 </figcaption>
-</figure>
-</center>
 
 Furthermore, these racial clusters tend to define the cities they are in. Despite being in close proximity with each other, each city has its own distinct culture. This is what provoked the question in the beginning of this post. What if we figure out which cities are happier than others at certain points in time? With this classification, we can possibly find out what people are happy or concerned about, something we can't do without surveys and directly interacting with people.
 
@@ -61,18 +63,21 @@ The goal is to build a classifier that takes in a tweet and outputs its sentimen
 
 I started with a baseline model of Naive Bayes, however that showed that it was slightly better than guessing. Logistic regression didn't converge. I also didn't try an SVM because the training set had only positive and negative values, yet we also needed to compute the neutral tweets which would use thresholds on probabilites predicted by the classifier, which SVM's aren't necessarily great at. Then, I turned my attention toward neural networks, specifically LSTMs and GRUs. Due to financial and computational constraints, I was limited to Google Collaboratory for this part of the project, so BERT models didn't run well or else I would have fine tuned and compared those as well. Below are the accuracies for each model.
 
-<figure markdown="span">
+<center>
+<figure markdown="span" id="ba_race_demos">
 ![img not found]({static}/assets/ba_sentiment_assets/model_comparison.jpg){.wp-image-104}
-<figcaption>
+</figure>
+</center>
+<figcaption markdown="span">
 Numbers in parentheses are the number of units associated to the layer. Each LSTM and GRU layer are bidirectional. Each neural network had a dense layer with 64 output units with a ReLU activation followed by another dense layer with 1 output unit with a sigmoid activation. Also, each neural network had a global spatial dropout of 0.5. Due to computational and time constraints, each network was trained for 3 epochs. Each model is based on the threshold criteria of predicting neutral if the prediction is between 0.3 and 0.7 (not inclusive).
 </figcaption>
-</figure>
 
 I chose to go forward with the GRU and convolutional network in bold in the table. This had less parameters than the GRU with 128 units, so this likely had a slightly lower variance. I trained this model for 10 epochs. After analyzing ROC curves to find the best thresholds, the model gave the following confusion matrix.
 
 
+<figure markdown="span" id="ba_race_demos">
 ![img not found]({static}/assets/ba_sentiment_assets/confusion_matrix_lstm_conv.png){.wp-image-105}
-
+</figure>
 
 When you’re ready to publish, give your post three to five tags that describe your blog’s focus — writing, photography, fiction, parenting, food, cars, movies, sports, whatever. These tags will help others who care about your topics find you in the Reader. Make sure one of the tags is “zerotohero,” so other new bloggers can find you, too.
 
@@ -115,15 +120,90 @@ The theory behind clustering these tweets is stems from the thought that people 
 
 If done correctly, this would give government and political officials a way of knowing what people are happy about and what people are unsatisifed with in their city or governing area. Previously, the only way of consolidating such information would be through surveys which are expensive and could have a low turnout depending on the location.
 
-### Case Study: Berkeley
+### Case Study: Berkeley, CA
 
 The first clustering algorithm I used was K-Means, however, the data showed to be unfit for K-Means. I switched to Agglomerative clustering. This type of clustering doesn't work well with large datasets, so I decided to take only Berkeley's tweets cluster those.
 
 Below is the dendrogram for Agglomerative Clustering using [Ward's method](https://en.wikipedia.org/wiki/Ward%27s_method) with Berkeley's positive and negative tweets.
 
-<figure markdown="span">
-![img not found]({static}/assets/ba_sentiment_assets/dendrogram_styled.png){}
-<figcaption>
+![img not found]({static}/assets/ba_sentiment_assets/dendrogram_styled.jpg){}
+<figcaption markdown="span">
 I had to omit the x-axis values since there were so many samples, it looked like a thick black bar. With over 2,000 samples in each dendrogram, there was no way to fit it neatly on the x-axis.
 </figcaption>
-</figure>
+
+#### Positive Clustering
+<ol>
+<li>
+	<ul>
+	<li>Tweets about other people's happiness</li>
+	<li>wishing other people well</li>
+	<li>sharing other's pleasant discoveries</li>
+	</ul>
+</li>
+<li>
+	<ul>
+	<li>Thanking people! Short and sweet tweets, typically of the form `@twitterhandle Thanks!`</li>
+	<li>Happiness derived from individual experiences</li>
+	<li>Gratefulness</li>
+	</ul>
+</li>
+<li>
+	<ul>
+	<li>Happy about receiving something new (job, earrings, etc.)</li>
+	<li>Non-mainstream news</li>
+	<li>Advertising (`check out our ...`)</li>
+	<li>UC Berkeley affiliated accounts</li>
+	<li>Less individual, more about group happiness or directed toward groups of people</li>
+	</ul>
+</li>
+</ol>
+
+#### Negative Clustering
+<ol>
+<li>Media accounts, very little personal accounts, mostly about the COVID-19 situation</li>
+<li>Large-ish tweets (100-200 characters) about various negatives such as Donald Trump, Joe Biden, personal experiences like kids falling off skateboards, work</li>
+<li>
+	<ul>
+	<li>Not much media, mostly personal accounts with 14% being about corona virus and quarantine</li>
+	<li>Dissatisfaction with the government</li>
+	<li>Dissatisfaction with Biden (recent sexual assault allegations). Far more tweets about this than the media, likely because Berkeley isn't a news/media giant.</li>
+	<li>Angry tone</li>
+	</ul>
+</li>
+<li>Miscellaneous</li>
+<li>Very similar to cluster 2, except the size of the tweets is much smaller (around 50 characters). This is expected since the embeddings are padded to the same length, so shorter tweets would be in a smaller subspace.</li>
+</ol>
+
+### Case Study Results
+This clustering was able to distinguish the corona virus tweets. Here's a glance at the types of tweets you get from that cluster:
+
+<ol markdown="1">
+<li markdown="1">
+> @[redacted] WE CAN'T POSSIBLY HAVE ANY FUN TILL AFTER THIS LOCKDOWN IS OVER WITH ALONG WITH A CURE FOR THE CORONA VIRUS ALONG WITH A VACCINE MADE THAT PEOPLE CAN TAKE MAKING IT WHERE WE CAN'T CATCH THE CORONA VIRUS!
+</li>
+
+<li markdown="1">
+> @[redacted] People who want to reopen the state at the cost of service workers and others lives
+</li>
+
+
+<li markdown="1">
+> There are legitimate concerns in the Democratic camp about what kind of steps other actors, including foreign actors and people with financial interests, will use to attack Joe Biden and other candidates. Assault accusations are probably not off the table on that front.
+</li>
+</ol>
+
+The clusters aren't perfect, but the ability for it to extract a large amount of tweets relating to the pandemic is promising. At a quick glance at the cluster, you can find a noticeable amount of related tweets to COVID-19. Once the pandemic dies down, the cluster will likely be lost, however, it could also pick up on other community dissatisfaction in the future.
+
+## Results
+We started with a dataset of tweets from the bay area and stripped it down to tweets that were likely to be from people who lived in certain cities within the bay.
+
+The LSTM + convolution network performed the best out of the machine learning algorithms attempted and was able to classify positive and negative tweets pretty well. Applying that to the dataset gave us which cities are happier on average compared to others.
+
+Lastly, we grouped the positive and negative tweets into clusters from tweets in Berkeley. We found interesting patterns in the clusters, but the most important was the cluster that extracted COVID-19 negative tweets, which points to a possibility of algorithmically detecting distress in cities.
+
+## Future Work
+The training dataset doesn't include neutral tweets. It would be very beneificial if there was a way to include this, however, it seems almost unfeasable at the moment.
+
+I only attempted recurrent networks, but attention networks may prove to have far better results.
+
+K-Means clustering showed to be undesirable, however, agglomerative clustering had some promising results. It has the caveate of having very poor scalability. Also, the idea of clustering tweets is very difficult given the very large space the tweets lie in. Other clustering methods may show to be better, such as spectral clustering and DBSCAN (which also has the scalability disadvantage).
