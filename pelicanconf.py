@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Cameron Malloy'
-SITENAME = 'spectral decomp'
+SITENAME = 'Cameron Malloy'
 SITEURL = ''
 
 PATH = 'content'
