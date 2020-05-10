@@ -28,8 +28,9 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
          ('You can modify those links in your config file', '#'),)
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL_LINKS = {'Github': 'https://www.github.com/cameronmalloy',
+                'Twitter': 'https://www.twitter.com/spectraldecomp',
+                'LinkedIn': 'https://www.linkedin.com/in/cameron-malloy'}
 
 STATIC_PATHS = ['assets']
 
