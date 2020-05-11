@@ -5,6 +5,7 @@ Category: Data Science
 Tags: NLP, Deep Learning, Clustering
 Slug: ba-sentiment
 Summary: What is the overall sentiment of the bay area? What is the distribution of this sentiment? What are people happy or sad about in a given area? The San Francisco Bay Area is home to a very diverse population. There are many different people from different racial profiles.
+Postid: 0
 
 *What is the overall sentiment of the bay area? What is the distribution of this sentiment? What are people happy or sad about in a given area?*
 
