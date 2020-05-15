@@ -210,3 +210,5 @@ The training dataset doesn't include neutral tweets. It would be very beneficial
 I only attempted recurrent networks, but attention networks may prove to have far better results.
 
 K-Means clustering showed to be undesirable, however, agglomerative clustering had some promising results. It has the caveat of having very poor scalability. Also, the idea of clustering tweets is very difficult given the very large space the tweets lie in. Other clustering methods may show to be better, such as spectral clustering and DBSCAN (which also has the scalability disadvantage).
+
+Of course this analysis becomes way more interesting with geo-tagged tweets. The problem is the scarcity of them, sepecially in this dataset which hovered around 500 tweets throughout the Bay Area, thus, it's hard to make any conclusive results or visualizations. Obtaining a large corpus of this could lead to some interesting results.
