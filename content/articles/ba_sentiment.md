@@ -19,7 +19,7 @@ The San Francisco Bay Area is home to a very diverse population. There are many 
 </figure>
 </center>
 <figcaption markdown="span">
-Data taken from <http://www.bayareacensus.ca.gov/bayarea.htm>
+Data taken from <a href="http://www.bayareacensus.ca.gov/bayarea.htm" target="_blank">the bay area census</a>.
 Original data is from the *2010 United States Census Summary File 1*. United States Census Bureau
 </figcaption>
 
@@ -34,11 +34,12 @@ What's more interesting is that individuals of the same race tend to live around
 </center>
 <figcaption markdown="span">
 Data from the *2010 United States Census Summary File 1*. United States Census Bureau. Each dot is 25 people: <span id="red_color">White</span>, <span id="blue_color">African American</span>, <span id="green_color">Asian</span>, <span id="orange_color">Hispanic</span>, or Other (yellow)
-Map by Eric Fischer: <https://www.flickr.com/photos/walkingsf/5560477152/>
+Map by: <a href=https://www.flickr.com/photos/walkingsf/5560477152/ target="_blank">Eric Fischer</a>
 </figcaption>
 
 Furthermore, these racial clusters tend to define the cities they are in. Despite being in close proximity with each other, each city has its own distinct culture. This is what provoked the question in the beginning of this post. What if we figure out which cities are happier than others at certain points in time? With this classification, we can possibly find out what people are happy or concerned about, something we can't do without surveys and directly interacting with people.
 
+**See my <a href="https://github.com/cameronmalloy/ba_sentiment" target="_blank"><b>github repository</b></a> to repeat these results or conduct a similar analysis.**
 
 ## Data Gathering
 
@@ -48,11 +49,13 @@ I used the Sentiment140 dataset. It has a large dataset of tweets which the algo
 
 ### Test Dataset
 
-I combined two test datasets. The first one is provided by [Sentiment140](http://help.sentiment140.com/for-students), the second is created by [Sanders Analytics](https://github.com/zfz/twitter_corpus). It's important to note that didn't use Sentiment140's neutral tweets, and instead relied on Sanders Analyitcs neutral tweets. Since I trained the model on only positive and negative tweets, having a large number of neutral tweets to adjust thresholds to classify neutrality isn't feasible. I looked over both datasets and I chose Sanders Analytics' neutral because the tweets were more diverse.
+I combined two test datasets. The first one is provided by [Sentiment140](http://help.sentiment140.com/for-students){target="_blank"}, the second is created by [Sanders Analytics](https://github.com/zfz/twitter_corpus){target="_blank"}. It's important to note that didn't use Sentiment140's neutral tweets, and instead relied on Sanders Analytics neutral tweets. Since I trained the model on only positive and negative tweets, having a large number of neutral tweets to adjust thresholds to classify neutrality isn't feasible. I looked over both datasets and I chose Sanders Analytics' neutral because the tweets were more diverse.
 
 ### Application Dataset
 
-I had access to a large corpus of geotagged tweets, however, they didn't have the tweet's texts. Twitter's API couldn't find the tweets, likely because it was so long ago. So I decided to create my own dataset.
+The data gathered for this dataset uses [Twitter's Standard Search API](https://developer.twitter.com/en/docs/tweets/search/overview){target="_blank"}. It allows developers to access tweets within the past week along with user information. It's worthwhile to note that the API I was using (standard) has incomplete data fidelity.
+
+I had access to a large corpus of geotagged tweets, however, they didn't have the tweet's texts. Twitter's API couldn't find the tweets, likely because it was so long ago. So, I decided to create my own dataset.
 
 I gathered all data within 40 miles of the center of the San Francisco Bay from Twitter's API. Twitter has a way of reverse geocoding tweets even if the user doesn't share their location. I gathered 700,000 tweets from this area that were tweeted between April 25th and May 2nd of 2020.
 
@@ -62,7 +65,7 @@ Twitter allows users to set their location. They can set it to anything, it does
 
 The goal is to build a classifier that takes in a tweet and outputs its sentiment, -1 for negative, 0 for neutral, and +1 for positive.
 
-I started with a baseline model of Naive Bayes, however that showed that it was slightly better than guessing. Logistic regression didn't converge. I also didn't try an SVM because the training set had only positive and negative values, yet we also needed to compute the neutral tweets which would use thresholds on probabilites predicted by the classifier, which SVM's aren't necessarily great at. Then, I turned my attention toward neural networks, specifically LSTMs and GRUs. Due to financial and computational constraints, I was limited to Google Collaboratory for this part of the project, so BERT models didn't run well or else I would have fine tuned and compared those as well. Below are the accuracies for each model.
+I started with a baseline model of Naive Bayes, however that showed that it was slightly better than guessing. Logistic regression didn't converge. I also didn't try an SVM because the training set had only positive and negative values, yet we also needed to compute the neutral tweets which would use thresholds on probabilities predicted by the classifier, which SVM's aren't necessarily great at. Then, I turned my attention toward neural networks, specifically LSTMs and GRUs. Due to financial and computational constraints, I was limited to Google Collaboratory for this part of the project, so BERT models didn't run well or else I would have fine tuned and compared those as well. Below are the accuracies for each model.
 
 <center>
 <figure markdown="span" id="ba_race_demos">
@@ -80,9 +83,6 @@ I chose to go forward with the GRU and convolutional network in bold in the tabl
 ![img not found]({static}/assets/ba_sentiment_assets/confusion_matrix_lstm_conv.png){.wp-image-105}
 </figure>
 
-When you’re ready to publish, give your post three to five tags that describe your blog’s focus — writing, photography, fiction, parenting, food, cars, movies, sports, whatever. These tags will help others who care about your topics find you in the Reader. Make sure one of the tags is “zerotohero,” so other new bloggers can find you, too.
-
-
 ## Sentiment
 
 Applying the model to the bay area tweets gives way to the following city sentiment map
@@ -99,7 +99,7 @@ Given the data was over one week during the extension of the COVID-19 shelter in
 
 <iframe width="100%" height="520" frameborder="0" src="https://cameronmalloy.carto.com/builder/2bf5c2c2-b229-4321-bc7e-35704761c585/embed" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
 
-Corona virus tweets accounted for 5% of the data and didn't effect the overall sentiments significantly. I had to plot this at the county level so the sample sizes were large enough to give a proper estimate of the sentiments. It's important to note though that Napa county only had 7 tweets relating to COVID-19.
+Corona virus tweets accounted for 5% of the data and didn't affect the overall sentiments significantly. I had to plot this at the county level, so the sample sizes were large enough to give a proper estimate of the sentiments. It's important to note though that Napa county only had 7 tweets relating to COVID-19.
 
 Example corona virus tweets:
 
@@ -117,20 +117,22 @@ Neutral tweet:
 
 ## Clustering
 
-The theory behind clustering these tweets is stems from the thought that people who are tweeting about positive things are likely tweeting about similar things. Similarly for negative things. So, we can separate the groups positive and negative tweets, and cluster them into groups and see if they have any similarities.
+The theory behind clustering these tweets is stems from the thought that people who are tweeting about positive things are likely tweeting about similar things. Similarly, for negative things. So, we can separate the groups positive and negative tweets, and cluster them into groups and see if they have any similarities.
 
-If done correctly, this would give government and political officials a way of knowing what people are happy about and what people are unsatisifed with in their city or governing area. Previously, the only way of consolidating such information would be through surveys which are expensive and could have a low turnout depending on the location.
+If done correctly, this would give government and political officials a way of knowing what people are happy about and what people are unsatisified with in their city or governing area. Previously, the only way of consolidating such information would be through surveys which are expensive and could have a low turnout depending on the location.
 
 ### Case Study: Berkeley, CA
 
-The first clustering algorithm I used was K-Means, however, the data showed to be unfit for K-Means. I switched to Agglomerative clustering. This type of clustering doesn't work well with large datasets, so I decided to take only Berkeley's tweets cluster those.
+The first clustering algorithm I used was K-Means, however, the data showed to be unfit for K-Means. I switched to Agglomerative clustering. This type of clustering doesn't work well with large datasets, so I decided to take only Berkeley's tweets cluster those. Silhouette and elbow plots can be found in the repository under `LSTM.ipynb`.
 
-Below is the dendrogram for Agglomerative Clustering using [Ward's method](https://en.wikipedia.org/wiki/Ward%27s_method) with Berkeley's positive and negative tweets.
+Below is the dendrogram for Agglomerative Clustering using [Ward's Method](https://en.wikipedia.org/wiki/Ward%27s_method) with Berkeley's positive and negative tweets.
 
 ![img not found]({static}/assets/ba_sentiment_assets/dendrogram_styled.jpg){}
 <figcaption markdown="span">
 I had to omit the x-axis values since there were so many samples, it looked like a thick black bar. With over 2,000 samples in each dendrogram, there was no way to fit it neatly on the x-axis.
 </figcaption>
+
+Considering the relative success of Agglomerative Clustering versus K-Means, it's likely that the clusters could be intermingled within each other (for instance one cluster is a ring and another cluster is a circle within that ring), problems that K-Means can't solve well.
 
 #### Positive Clustering
 <ol>
@@ -193,7 +195,7 @@ This clustering was able to distinguish the corona virus tweets. Here's a glance
 </li>
 </ol>
 
-The clusters aren't perfect, but the ability for it to extract a large amount of tweets relating to the pandemic is promising. At a quick glance at the cluster, you can find a noticeable amount of related tweets to COVID-19. Once the pandemic dies down, the cluster will likely be lost, however, it could also pick up on other community dissatisfaction in the future.
+The clusters aren't perfect, but the ability for it to extract a large number of tweets relating to the pandemic is promising. At a quick glance at the cluster, you can find a noticeable amount of related tweets to COVID-19. Once the pandemic dies down, the cluster will likely be lost, however, it could also pick up on other community dissatisfaction in the future.
 
 ## Results
 We started with a dataset of tweets from the bay area and stripped it down to tweets that were likely to be from people who lived in certain cities within the bay.
@@ -203,8 +205,8 @@ The LSTM + convolution network performed the best out of the machine learning al
 Lastly, we grouped the positive and negative tweets into clusters from tweets in Berkeley. We found interesting patterns in the clusters, but the most important was the cluster that extracted COVID-19 negative tweets, which points to a possibility of algorithmically detecting distress in cities.
 
 ## Future Work
-The training dataset doesn't include neutral tweets. It would be very beneificial if there was a way to include this, however, it seems almost unfeasable at the moment.
+The training dataset doesn't include neutral tweets. It would be very beneficial if there was a way to include this, however, it seems almost unfeasible at the moment.
 
 I only attempted recurrent networks, but attention networks may prove to have far better results.
 
-K-Means clustering showed to be undesirable, however, agglomerative clustering had some promising results. It has the caveate of having very poor scalability. Also, the idea of clustering tweets is very difficult given the very large space the tweets lie in. Other clustering methods may show to be better, such as spectral clustering and DBSCAN (which also has the scalability disadvantage).
+K-Means clustering showed to be undesirable, however, agglomerative clustering had some promising results. It has the caveat of having very poor scalability. Also, the idea of clustering tweets is very difficult given the very large space the tweets lie in. Other clustering methods may show to be better, such as spectral clustering and DBSCAN (which also has the scalability disadvantage).

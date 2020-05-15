@@ -14,7 +14,7 @@ For a more formal look into my experiences, check out <a href= ../assets/pdfs/cm
 
 I was once told that "anything data" can't be a passion, it was too broad. While I agree that it is very broad, I also disagree that it can't be your passion. I firmly believe that data can be your passion, any kind of data whether it be small or large, about health or advertisements. What I love about data is deeper than just the data itself and what it represents. It goes back further, before I even knew what data science was.
 
-The cliche statement everyone uses is that data tells a story, but it's also more than that. It reveals something about human nature when analyzed correctly. The whole point of machine learning is to replace human tasks with a computer, yet almost every human task involves understanding something about human nature. So in essence, we're building models that understand human nature. In order to build those models, we need to learn about human behavior. So, the work I do let's me learn more about humans, what people are like, how they (re)act and most imporantly, why they're driven to these actions and that's why I love it so much.
+The cliché statement everyone uses is that data tells a story, but it's also more than that. It reveals something about human nature when analyzed correctly. The whole point of machine learning is to replace human tasks with a computer, yet almost every human task involves understanding something about human nature. So, in essence, we're building models that understand human nature. In order to build those models, we need to learn about human behavior. So, the work I do let's me learn more about humans, what people are like, how they (re)act and most importantly, why they're driven to these actions and that's why I love it so much.
 
 ### What I Do
 #### Data Scientist at [Proofpoint](https://www.proofpoint.com/us)
@@ -22,14 +22,15 @@ The cliche statement everyone uses is that data tells a story, but it's also mor
 
 ### What I've Done
 #### Teaching
+*I've TA'd [CS61A](https://cs61a.org/) and [CS88](https://cs88-website.github.io/) at UC Berkeley. I was an [Outstanding (under)Graduate Student Instructor](https://gsi.berkeley.edu/programs-services/award-programs/ogsi/ogsi-2020/) as well! I also tutored [stem courses at Cañada College](https://www.canadacollege.edu/stemcenter/tutoring.php), and [taught middle schoolers how to code](https://technovationchallenge.org/).*
+
 I love teaching! There are a lot of struggles that come with teaching, but I love teaching for the moments where I push a student just enough to where they get to the answer on their own. When their face goes from despair and heartbreak, from working on some recursive tree problem for hours, to the biggest smile and widest eyes possible.
 
-I can't tell you how many times I've screwed this up though. I accidentally give the student the answer or I don't give enough help that it ends  up frustrating them. However, in the end, I learn a lot from teaching. I've learned how to explain things differently and I've gained a lot of empathy for those who are learning things for the first time.
+I can't tell you how many times I've screwed this up though. I accidentally give the student the answer or I don't give enough help that it ends up frustrating them. However, in the end, I learn a lot from teaching. I've learned how to explain things differently and I've gained a lot of empathy for those who are learning things for the first time.
 
-*I've TA'd [CS61A](https://cs61a.org/) and [CS88](https://cs88-website.github.io/) at UC Berkeley. I was an [Outstanding (under)Graduate Student Intstructor](https://gsi.berkeley.edu/programs-services/award-programs/ogsi/ogsi-2020/) as well! I also tutored [stem courses at Cañada College](https://www.canadacollege.edu/stemcenter/tutoring.php), and [taught middle schoolers how to code](https://technovationchallenge.org/).*
 
 #### Data Science
-I've interned with Proofpoint, worked with [Apigee](https://cloud.google.com/apigee), and held research at [San Francisco State University](http://www.sfsu-icelab.org/).
+*I've interned with Proofpoint, worked with [Apigee](https://cloud.google.com/apigee), and held research at [San Francisco State University](http://www.sfsu-icelab.org/).*
 
 - Proofpoint: Very very big and scary **security** data. Built a compromised email account detection system
 - Apigee: Small-medium sized, very messy and sometimes inconsistent **marketing and sales** data. Created a propensity to buy/expand algorithm.
