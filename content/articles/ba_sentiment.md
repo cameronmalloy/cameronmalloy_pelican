@@ -181,7 +181,7 @@ Considering the relative success of Agglomerative Clustering versus K-Means, it'
 <li>
 	<ul>
 	<li>Not much media, mostly personal accounts with 14% being about corona virus and quarantine</li>
-	<li>Dissatisfaction with the government</li>
+	<li>Dissatisfaction with the federal government</li>
 	<li>Dissatisfaction with Biden (recent sexual assault allegations). Far more tweets about this than the media, likely because Berkeley isn't a news/media giant.</li>
 	<li>Angry tone</li>
 	</ul>
@@ -221,6 +221,8 @@ Lastly, we grouped the positive and negative tweets into clusters from tweets in
 Twitter data poses ethical concerns. While their terms of service states that tweets may be used by 3rd parties, it's difficult to determine if people in the Bay Area were ok with their data being used for this analysis, and ok for me personally to look directly at their tweets. I however, didn't match twitter handle with tweets aside from looking at the general structure of the json output from the api, but I would figure many people still wouldn't be ok with this. There's also the fact that users may delete their tweets, but those tweets will still be represented in this post. Although aggregated with many others, it's hard to tell.
 
 Twitter has a reverse geolocation feature which allows developers to grab tweets from a certain location even if users don't opt into geotagging their tweets. This allowed me to collect a lot of data, but it also allows 3rd parties to get a relative area where user's tweeted, even if they don't want to give away this information. I'm sure Twitter handles this in their terms and services, however, I never knew of this feature before starting this project. Reverse geotagging should be made more transparent, because the fact 3rd parties can map out which cities users come from without opting into geotagging is concerning.
+
+Also, interpretation of this analysis can lead to misleading results. For instance, this analysis relies solely on Twitter data, which may not be representative of the population you're analyzing. The bay area has a thriving Twitter following, so large issues effecting many people will likely be relayed through Twitter eventually. However, this may not be the case in cities with small Twitter followings (and even so in the bay area like in Napa County). I would suggest further testing to see for how many people are worried about some problem, 1 person will eventually tweet about it, and capturing this number will give an essence as to what kind of clusters and problems you can detect.
 
 ## Future Work
 The training dataset doesn't include neutral tweets. It would be very beneficial if there was a way to include this, however, it seems almost unfeasible at the moment.
