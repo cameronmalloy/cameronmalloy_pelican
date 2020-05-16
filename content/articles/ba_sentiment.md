@@ -23,7 +23,7 @@ Data taken from <a href="http://www.bayareacensus.ca.gov/bayarea.htm" target="_b
 Original data is from the *2010 United States Census Summary File 1*. United States Census Bureau
 </figcaption>
 
-What's more interesting is that individuals of the same race tend to live around each other. The reasons behind this could be due to a multitude of reasons. One may be a want to be near social connections. Some others may be housing, employment, and police discrimination, separating races.
+What's more interesting is that individuals of the same race tend to live around each other. The reasons behind this could be due to a multitude of reasons. One may want to be near social connections. Some others factors may be housing, employment, and police discrimination that separates races.
 
 **Race and Ethnicity 2010 - San Francisco Bay Area**
 
@@ -37,7 +37,7 @@ Data from the *2010 United States Census Summary File 1*. United States Census 
 Map by: <a href=https://www.flickr.com/photos/walkingsf/5560477152/ target="_blank">Eric Fischer</a>
 </figcaption>
 
-Furthermore, these racial clusters tend to define the cities they are in. Despite being in close proximity with each other, each city has its own distinct culture. This is what provoked the question in the beginning of this post. What if we figure out which cities are happier than others at certain points in time? With this classification, we can possibly find out what people are happy or concerned about, something we can't do without surveys and directly interacting with people.
+Furthermore, these racial clusters tend to define the cities they are in. Despite being in close proximity within each other, each city has its own distinct culture. This is what provoked the question in the beginning of this post. What if we figure out which cities are happier than others at certain points in time? With this classification, we can possibly find out what people are happy or concerned about, something we can't do without surveys and directly interacting with people.
 
 **See my <a href="https://github.com/cameronmalloy/ba_sentiment" target="_blank"><b>github repository</b></a> to repeat these results or conduct a similar analysis.**
 
@@ -45,7 +45,7 @@ Furthermore, these racial clusters tend to define the cities they are in. Despit
 
 ### Training Dataset
 
-I used the [Sentiment140](http://help.sentiment140.com/for-students){target="_blank"} dataset. It has a large dataset of tweets which the algorithmically determined was either positive or negative based on emojis and keywords. This was the only dataset I found that was large enough to train a neural network and had justification in building the dataset. There were some kaggle datasets, but they didn't give any background on how labels were created, so I was concerned with the validity. One great thing about the Sentiment140 dataset is they impose some assumptions, but then each classified tweet is consistent and uses the same rules. That means human bias isn't imposed differently on every tweet, only imposed before classification.
+I used the [Sentiment140](http://help.sentiment140.com/for-students){target="_blank"} dataset. It has a large dataset of tweets which uses distant supervision. They used emoticons to help label their tweets (labels were not created manually), read more from their [paper](https://cs.stanford.edu/people/alecmgo/papers/TwitterDistantSupervision09.pdf). This was the only dataset I found that was large enough to train a neural network and had justification in building the dataset. There were some kaggle datasets, but they didn't give any background on how labels were created, so I was concerned with the validity. One great thing about the Sentiment140 dataset is they impose some assumptions, but then each classified tweet is consistent and uses the same rules. That means human bias isn't imposed differently on every tweet, only imposed before classification.
 
 ### Test Dataset
 
@@ -59,7 +59,7 @@ I had access to a large corpus of geotagged tweets, however, they didn't have th
 
 I gathered all data within 40 miles of the center of the San Francisco Bay from Twitter's API. Twitter has a way of reverse geocoding tweets even if the user doesn't share their location. I gathered 700,000 tweets from this area that were tweeted between April 25th and May 2nd of 2020.
 
-Twitter allows users to set their location. They can set it to anything, it doesn't have to be their location at all. You could live in San Francisco but set your location to Kuala Lumpur. So I only took the tweets that had users who's location was a bay area city. The thought is that if they tweeted from within the bay area and their location is set to a bay area city, then there's a high likelihood that they live in that city. I ended up having about a quarter million tweets in my constructed dataset.
+Twitter allows users to set their location. They can set it to anything, it doesn't have to be their location at all. You could live in San Francisco but set your location to Kuala Lumpur. So I only took the tweets that had users whose location was a bay area city. The thought is that if they tweeted from within the bay area and their location is set to a bay area city, then there's a high likelihood that they live in that city. I ended up having about a quarter million tweets in my constructed dataset.
 
 ## Models
 
@@ -82,7 +82,7 @@ I chose to go forward with the GRU and convolutional network in bold in the tabl
 ![img not found]({static}/assets/ba_sentiment_assets/confusion_matrix_lstm_conv.png){.wp-image-105}
 </figure>
 
-We can see that neutral tweets are not the strong suit, but the classifier is quite good at predicting positive and negative tweets. This is likely due to the lack of neutral tweets. However, with a large enough sample size, the proportion of positive and negative tweets will likely approach the true result, and perturbations will be minimized. False positives and negatives are mostly due to sarcasm and tweets that require context.
+We can see that neutral tweets aren't the model's strength, but the classifier is quite good at predicting positive and negative tweets. This is likely due to the lack of neutral tweets. However, with a large enough sample size, the proportion of positive and negative tweets will likely approach the true result, and perturbations will be minimized. False positives and negatives are mostly due to sarcasm and tweets that require context.
 
 ## Sentiment
 
@@ -128,6 +128,7 @@ Negative tweet:
 Neutral tweet:
 > My husband has been restaurant-phobic since this whole quarantine deal started up. I’ve *finally* convinced him to take a shot on some Chipotle takeout tonight. Nature is healing.
 
+This tweet may seem positive, however, from the model's point of view, the first sentence is negative and the second sentence is positive. The GRU puts more emphasis on complete sentences and likely separates the two out. So classifying this as a neutral tweet makes sense from the model's point of view. It also shows the faults of the model.
 ## Clustering
 
 The theory behind clustering these tweets stems from the thought that people who are tweeting about positive things are likely tweeting about the same things. Similarly, for negative tweets. So, we can separate the groups positive and negative tweets, and cluster them into groups and see if they have any similarities.
@@ -217,13 +218,6 @@ The LSTM + convolution network performed the best out of the machine learning al
 
 Lastly, we grouped the positive and negative tweets into clusters from tweets in Berkeley. We found interesting patterns in the clusters, but the most important was the cluster that extracted COVID-19 negative tweets, which points to a possibility of algorithmically detecting distress in cities.
 
-## Ethical concerns
-Twitter data poses ethical concerns. While their terms of service states that tweets may be used by 3rd parties, it's difficult to determine if people in the Bay Area were ok with their data being used for this analysis, and ok for me personally to look directly at their tweets. I however, didn't match twitter handle with tweets aside from looking at the general structure of the json output from the api, but I would figure many people still wouldn't be ok with this. There's also the fact that users may delete their tweets, but those tweets will still be represented in this post. Although aggregated with many others, it's hard to tell.
-
-Twitter has a reverse geolocation feature which allows developers to grab tweets from a certain location even if users don't opt into geotagging their tweets. This allowed me to collect a lot of data, but it also allows 3rd parties to get a relative area where user's tweeted, even if they don't want to give away this information. I'm sure Twitter handles this in their terms and services, however, I never knew of this feature before starting this project. Reverse geotagging should be made more transparent, because the fact 3rd parties can map out which cities users come from without opting into geotagging is concerning.
-
-Also, interpretation of this analysis can lead to misleading results. For instance, this analysis relies solely on Twitter data, which may not be representative of the population you're analyzing. The bay area has a thriving Twitter following, so large issues effecting many people will likely be relayed through Twitter eventually. However, this may not be the case in cities with small Twitter followings (and even so in the bay area like in Napa County). I would suggest further testing to see for how many people are worried about some problem, 1 person will eventually tweet about it, and capturing this number will give an essence as to what kind of clusters and problems you can detect.
-
 ## Future Work
 The training dataset doesn't include neutral tweets. It would be very beneficial if there was a way to include this, however, it seems almost unfeasible at the moment.
 
@@ -232,3 +226,10 @@ I only attempted recurrent networks, but attention networks may prove to have fa
 K-Means clustering showed to be undesirable, however, agglomerative clustering had some promising results. It has the caveat of having very poor scalability. Also, the idea of clustering tweets is very difficult given the very large space the tweets lie in. Other clustering methods may show to be better, such as spectral clustering and DBSCAN (which also has the scalability disadvantage).
 
 Of course this analysis becomes way more interesting with geo-tagged tweets. The problem is the scarcity of them, sepecially in this dataset which hovered around 500 tweets throughout the Bay Area, thus, it's hard to make any conclusive results or visualizations. Obtaining a large corpus of this could lead to some interesting results.
+
+## Ethical concerns
+Twitter data poses ethical concerns. While their terms of service states that tweets may be used by 3rd parties, it's difficult to determine if people in the Bay Area were ok with their data being used for this analysis, and ok for me personally to look directly at their tweets. I however, didn't match twitter handle with tweets aside from looking at the general structure of the json output from the api, but I would figure many people still wouldn't be ok with this. There's also the fact that users may delete their tweets, but those tweets will still be represented in this post. Although aggregated with many others, it's hard to tell.
+
+Twitter has a reverse geolocation feature which allows developers to grab tweets from a certain location even if users don't opt into geotagging their tweets. This allowed me to collect a lot of data, but it also allows 3rd parties to get a relative area where users tweeted, even if they don't want to give away this information. I'm sure Twitter handles this in their terms and services, however, I never knew of this feature before starting this project. Reverse geotagging should be made more transparent, because the fact 3rd parties can map out which cities users come from without opting into geotagging is concerning.
+
+Also, interpretation of this analysis can lead to misleading results. For instance, this analysis relies solely on Twitter data, which may not be representative of the population you're analyzing. The bay area has a thriving Twitter following, so large issues affecting many people will likely be relayed through Twitter eventually. However, this may not be the case in cities with small Twitter followings (and even so in the bay area like in Napa County). I would suggest further testing to see for how many people are worried about some problem, 1 person will eventually tweet about it, and capturing this number will give an essence as to what kind of clusters and problems you can detect.
