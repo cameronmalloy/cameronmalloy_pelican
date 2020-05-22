@@ -39,6 +39,9 @@ Map by: <a href=https://www.flickr.com/photos/walkingsf/5560477152/ target="_bla
 
 Furthermore, these racial clusters tend to define the cities they are in. Despite being in close proximity within each other, each city has its own distinct culture. This is what provoked the question in the beginning of this post. What if we figure out which cities are happier than others at certain points in time? With this classification, we can possibly find out what people are happy or concerned about, something we can't do without surveys and directly interacting with people.
 
+Even more interesting is that during the time of this analysis, COVID-19 has taken effect and the data gathered is during the time when the waves of extended shelter in place were announced. Therefore, models should have an easier time isolating COVID-19 responses.
+However, if replicated, it may not lead to as interpretable results and may need further analysis.
+
 **See my <a href="https://github.com/cameronmalloy/ba_sentiment" target="_blank"><b>github repository</b></a> to repeat these results or conduct a similar analysis.**
 
 ## Data Gathering
