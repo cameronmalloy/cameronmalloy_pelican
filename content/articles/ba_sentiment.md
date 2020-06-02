@@ -48,7 +48,7 @@ However, if replicated, it may not lead to as interpretable results and may need
 
 ### Training Dataset
 
-I used the [Sentiment140](http://help.sentiment140.com/for-students){target="_blank"} dataset. It has a large dataset of tweets which uses distant supervision. They used emoticons to help label their tweets (labels were not created manually), read more from their [paper](https://cs.stanford.edu/people/alecmgo/papers/TwitterDistantSupervision09.pdf). This was the only dataset I found that was large enough to train a neural network and had justification in building the dataset. There were some kaggle datasets, but they didn't give any background on how labels were created, so I was concerned with the validity. One great thing about the Sentiment140 dataset is they impose some assumptions, but then each classified tweet is consistent and uses the same rules. That means human bias isn't imposed differently on every tweet, only imposed before classification.
+I used the [Sentiment140](http://help.sentiment140.com/for-students){target="_blank"} dataset. It has a large dataset of tweets which uses distant supervision. They used emoticons to help label their tweets (labels were not created manually), read more from their [paper](https://cs.stanford.edu/people/alecmgo/papers/TwitterDistantSupervision09.pdf){target="_blank"}. This was the only dataset I found that was large enough to train a neural network and had justification in building the dataset. There were some kaggle datasets, but they didn't give any background on how labels were created, so I was concerned with the validity. One great thing about the Sentiment140 dataset is they impose some assumptions, but then each classified tweet is consistent and uses the same rules. That means human bias isn't imposed differently on every tweet, only imposed before classification.
 
 ### Test Dataset
 
@@ -236,3 +236,40 @@ Twitter data poses ethical concerns. While their terms of service states that tw
 Twitter has a reverse geolocation feature which allows developers to grab tweets from a certain location even if users don't opt into geotagging their tweets. This allowed me to collect a lot of data, but it also allows 3rd parties to get a relative area where users tweeted, even if they don't want to give away this information. I'm sure Twitter handles this in their terms and services, however, I never knew of this feature before starting this project. Reverse geotagging should be made more transparent, because the fact 3rd parties can map out which cities users come from without opting into geotagging is concerning.
 
 Also, interpretation of this analysis can lead to misleading results. For instance, this analysis relies solely on Twitter data, which may not be representative of the population you're analyzing. The bay area has a thriving Twitter following, so large issues affecting many people will likely be relayed through Twitter eventually. However, this may not be the case in cities with small Twitter followings (and even so in the bay area like in Napa County). I would suggest further testing to see for how many people are worried about some problem, 1 person will eventually tweet about it, and capturing this number will give an essence as to what kind of clusters and problems you can detect.
+
+## Addendum
+
+I followed up and did the same sentiment classification a month later (May 25th to June 2nd 2020), when tensions were very high after the death of [George Floyd](https://www.nytimes.com/2020/05/31/us/george-floyd-investigation.html){target="_blank"}.
+
+<figure>
+<iframe width="100%" height="520" frameborder="0" src="https://cameronmalloy.carto.com/builder/ee1c6026-4846-4ae6-b699-f2bdc1cca586/embed" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+</figure>
+<figcaption markdown="span">
+<br />
+Shapefile: [Stanford Earthworks](https://earthworks.stanford.edu/catalog/stanford-vj593xs7263)
+</figcaption>
+
+Comparing this map to the previous map, the sharp difference between the peninsula and east bay remains. However, the bay area, especially those closest to metropolitan areas, are largely more negative on average. Regions around Oakland saw the sharpest drop, likely because of the racial demographics of the region and having a prominent Black population. Even regions around the pensinula like the San Mateo region saw a large drop similar to the East Bay as well. In fact, the drop around Oakland is statistically significant, as shown with the permutation test visualization below. The permutation test has a null hypothesis that the difference between the May and June sentiments are the same and an alternative that June sentiments are much smaller. The test results in a p-value of 0.
+
+<center>
+<figure markdown="span" id="ba_race_map">
+![img not found]({static}/assets/ba_sentiment_assets/oakland_permutation_test.jpg){}
+</figure>
+</center>
+<figcaption markdown="span">
+Permutation code can be found on the [github repo](https://github.com/cameronmalloy/ba_sentiment/blob/master/data/sf_tweets/oakland_permutation_test_notebook.ipynb){target="_blank"}
+</figcaption>
+
+The numbers are also skewed positive in this instance since there are a number of tweets that confused the classifier. For instance, tweets such as
+
+<ol markdown="1">
+<li markdown="1">
+> Oh my god [Image of violent protests]
+</li>
+
+<li markdown="1">
+> Surely there is a hero out there somewhere?
+</li>
+</ol>
+
+There are a large number of tweets trying to spread love and show support for the movement in the bay area. This, along with the stock market trending up consistently since the corona virus outbreak and Census 2020 tweets make for a lot of things to be positive about. I'll leave the cluster analysis for the reader, however, it's relatively similar to what was stated above, except Covid tweets are replaced with the Black Lives Matter movement and the protests.
