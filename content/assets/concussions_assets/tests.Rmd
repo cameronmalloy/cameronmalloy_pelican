@@ -1,0 +1,301 @@
+---
+title: "Concussions"
+author: "Cameron Malloy"
+date: "6/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+```
+
+## R Markdown
+
+
+```{r defines}
+unique_outs <- c(361, 372, 605, 410, 355, 394, 369, 470)
+plays <- c(32882.0, 33302.0, 32779.0, 32973.0, 32734.0, 32438.0, 32224.0, 32516.0)
+scores <- c(2015, 2078, 2018, 2044, 2086, 1998, 2095, 2028)
+years <- c(2012:2019) - 2012
+year_indicator <- c(0, 0, 0, 0, 0, 0, 1, 1)
+concussions <- c(176, 152, 123, 192, 172, 190, 135, 145)
+```
+
+```{r}
+df <- data.frame(Years=c(2012:2019), Concussions=concussions)
+plt <- ggplot(data=df, aes(x=Years, y=Concussions)) +
+  geom_line() +
+  ggtitle("Concussions Over Time")
+plt
+```
+
+```{r}
+ggsave("time_series.jpg",
+       plot=plt,
+       width=6, height=4,
+       units="in")
+```
+
+```{r}
+avg_diff <- function(permuted, i) {
+  mid = i+1
+  pre = permuted[1:mid-1]
+  post = permuted[mid:length(permuted)]
+  #return(sum(pre) - sum(post))
+  return(sum(pre) / i - (sum(post) / (length(permuted) - i)))
+}
+```
+
+```{r}
+ab_test <- function(permuting_col, i) {
+  stats = c()
+  for (val in c(1:10000)) {
+    permuted = sample(permuting_col, length(permuting_col))
+    stat = avg_diff(permuted, i)
+    stats = c(stats, stat)
+  }
+  stat = avg_diff(permuting_col, i)
+  print(sum(stats >= stat) / length(stats))
+  df <- as.data.frame(stats)
+  colnames(df) <- c('stats')
+  plt = ggplot(df, aes(x=stats)) +
+    geom_histogram(aes(y=..density..), col='black', fill='white', binwidth=2) +
+    geom_density(alpha=0.2, fill="orange") +
+    geom_vline(aes(xintercept=avg_diff(permuting_col, i)), col="blue", linetype="dashed", size=1) +
+    ggtitle('Histogram of Permuted Average Differences of Concussions - Augmented (Pre and Post 2018)') +
+    xlab('Average Concussions Pre 2018 - Average Concussions Post 2018')
+  return(plt)
+}
+```
+
+```{r}
+plt <- ab_test(concussions_revised, 5)
+```
+
+```{r}
+plt
+```
+
+```{r}
+ggsave("2017_ab_test.jpg",
+       plot=plt,
+       width=8, height=6,
+       units="in")
+```
+
+```{r}
+plt <- ab_test(concussions_revised, 6)
+```
+
+```{r}
+plt
+```
+
+```{r}
+ggsave("2018_ab_test_augmented.jpg",
+       plot=plt,
+       width=9, height=6,
+       units="in")
+```
+
+```{r lms}
+plot(unique_outs, concussions)
+```
+
+```{r}
+plot(plays, concussions)
+```
+
+```{r}
+plot(scores, concussions)
+```
+
+```{r}
+summary(lm(concussions ~ years))
+```
+
+```{r}
+summary(lm(concussions ~ unique_outs))
+```
+
+
+```{r}
+summary(lm(concussions ~ plays))
+```
+
+```{r}
+summary(lm(concussions ~ scores))
+```
+
+```{r}
+summary(lm(concussions ~ years + unique_outs))
+```
+
+```{r}
+summary(lm(concussions ~ years + plays))
+```
+
+```{r}
+summary(lm(concussions ~ years + scores))
+```
+
+```{r}
+summary(lm(concussions ~ years + unique_outs + scores))
+```
+
+
+```{r}
+summary(lm(concussions ~ years + unique_outs + plays))
+```
+
+```{r}
+summary(lm(concussions ~ years + plays + scores))
+```
+
+```{r}
+summary(lm(concussions ~ years + unique_outs + plays + scores))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + years))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + unique_outs))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + scores))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + plays))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + unique_outs + scores))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + unique_outs + plays))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + plays + scores))
+```
+
+```{r}
+summary(lm(concussions ~ year_indicator + unique_outs + plays + scores))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+summary(lm(concussions ~ unique_outs + scores + plays))
+```
+
+```{r}
+summary(lm(concussions ~ unique_outs + scores))
+```
+
+```{r}
+unique_outs * -0.26
+```
+
+```{r}
+unique_outs
+```
+
+```{r}
+concussions
+```
+
+# Removing the Outlier
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+boxplot(concussions[1:6])
+stripchart(concussions[1:6], vertical = TRUE, add=TRUE, col='red')
+```
+
+Clearly an outlier at 123, so we'll change that to the lowest quantile and see how that changes things.
+
+```{r}
+concussions_revised <- concussions[1:8]
+concussions_revised[3] = mean(concussions[1:6])
+concussions_revised
+```
+
+```{r}
+plot.ts(concussions_revised)
+```
+
+```{r}
+model <- lm(concussions_revised ~ year_indicator + unique_outs + scores + plays)
+summary(model)
+```
+
+```{r}
+model <- lm(concussions_revised ~ year_indicator)
+summary(model)
+```
+
+```{r}
+model <- lm(concussions_revised ~ year_indicator + unique_outs)
+summary(model)
+```
+
+```{r}
+model <- lm(concussions_revised ~ year_indicator + unique_outs + scores)
+summary(model)
+```
+
+```{r}
+model <- lm(concussions_revised ~ year_indicator + unique_outs + plays)
+summary(model)
+```
+
+```{r}
+model <- lm(concussions_revised ~ year_indicator + scores + plays)
+summary(model)
+```
+
+```{r}
+model <- lm(concussions_revised ~ year_indicator + unique_outs + scores + plays)
+summary(model)
+```
+
+```{r}
+plot.ts(concussions_revised)
+lines(model$fitted.values, col='red')
+```
+
+```{r}
+model2 <- lm(concussions ~ unique_outs + scores)
+plot.ts(concussions)
+lines(model2$fitted.values, col='red')
+```
+
+
