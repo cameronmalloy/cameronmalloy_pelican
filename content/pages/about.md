@@ -4,9 +4,9 @@ Author: Cameron Malloy
 Slug: about
 Cover: assets/imgs/grad_photo.jpg
 
-[Hello There!](https://www.youtube.com/watch?v=rEq1Z0bjdwc) I'm a recent graduate from the University of California, Berkeley with degrees in [Applied Mathematics (focus in Economics)](https://math.berkeley.edu/programs/undergraduate/major/applied) and [Data Science](https://data.berkeley.edu/degrees/data-science-ba/upper-division). Now I work as a Data Scientist for [Proofpoint](https://www.proofpoint.com/us)!
+[Hello There!](https://www.youtube.com/watch?v=rEq1Z0bjdwc){target="_blank"} I'm a recent graduate from the University of California, Berkeley with degrees in [Applied Mathematics (focus in Economics)](https://math.berkeley.edu/programs/undergraduate/major/applied){target="_blank"} and [Data Science](https://data.berkeley.edu/degrees/data-science-ba/upper-division){target="_blank"}. Now I work as a Data Scientist for [Proofpoint](https://www.proofpoint.com/us){target="_blank"}!
 
-I'm an avid bay area sports fan, slowly improving home cook, and as a [lefty I find it impossible to use some daily tools (brooms, scissors, can openers, etc.)](https://www.reddit.com/r/AskReddit/comments/bfdghn/left_handed_people_of_reddit_what_is_the_hardest/). Of course, I'm also in love with data and pretty much all aspects of it. Staring at data all day has been something I've grown to love.
+I'm an avid bay area sports fan, slowly improving home cook, and as a [lefty I find it impossible to use some daily tools (brooms, scissors, can openers, etc.)](https://www.reddit.com/r/AskReddit/comments/bfdghn/left_handed_people_of_reddit_what_is_the_hardest/){target="_blank"}. Of course, I'm also in love with data and pretty much all aspects of it. Staring at data all day has been something I've grown to love.
 
 For a more formal look into my experiences, check out <a href= ../assets/pdfs/cmalloy_resume.pdf target="_blank">my resume</a>
 
@@ -16,9 +16,12 @@ I was once told that "anything data" can't be a passion, it was too broad. While
 
 The cliché statement everyone uses is that data tells a story, but it's also more than that. It reveals something about human nature when analyzed correctly. The whole point of machine learning is to replace human tasks with a computer, yet almost every human task involves understanding something about human nature. So, in essence, we're building models that understand human nature. In order to build those models, we need to learn about human behavior. So, the work I do let's me learn more about humans, what people are like, how they (re)act and most importantly, why they're driven to these actions and that's why I love it so much.
 
-### What I Do
-#### Data Scientist at [Proofpoint](https://www.proofpoint.com/us)
+### What I Do Now
+#### Data Scientist at [Proofpoint](https://www.proofpoint.com/us){target="_blank"}
 *I work on threat research and solving cutting edge enterprise security problems with machine learning tools.*
+
+#### Blogging
+I do these blog posts every now and again (on this website... that's probably how you found this page anyways haha). It gives me an outlet to discover new and interesting ideas and datasets. Cybersecurity isn't the only thing that interests me, so I'll go out and find some data on some other stuff that I find to be really cool. I also use this as a way to learn things that I'm not particularly good at and practice. Nothing monetary about this, just a fun little hobby.
 
 ### What I've Done
 #### Teaching
