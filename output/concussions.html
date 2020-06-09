@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+  <title>Have NFL Rules Affected Concussion Rates?</title>
+
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin" />
+  <meta name="generator" content="Pelican" />
+<link href="/concussions.html" rel="canonical" />
+  <!-- Feed -->
+
+  <link href="/theme/css/style.css" type="text/css" rel="stylesheet" />
+
+  <!-- Code highlight color scheme -->
+      <link href="/theme/css/code_blocks/github.css" rel="stylesheet">
+
+
+  <!-- Custom fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css" />
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+
+    <meta name="description" content="Have the new NFL rules significantly reduced the number of concussions in a season? Or has the decrease just been random chance?">
+
+    <meta name="author" content="Cameron Malloy">
+
+    <meta name="tags" content="Causality Tests">
+    <meta name="tags" content="Permutation Testing">
+    <meta name="tags" content="Multivariate Regression">
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Cameron Malloy"/>
+<meta property="og:title" content="Have NFL Rules Affected Concussion Rates?"/>
+<meta property="og:description" content="Have the new NFL rules significantly reduced the number of concussions in a season? Or has the decrease just been random chance?"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/concussions.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2020-06-08 15:30:00-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="/author/cameron-malloy.html">
+<meta property="article:section" content="Data Science"/>
+<meta property="article:tag" content="Causality Tests"/>
+<meta property="article:tag" content="Permutation Testing"/>
+<meta property="article:tag" content="Multivariate Regression"/>
+<meta property="og:image" content="/theme/images/post-bg.jpg">
+
+<!-- Twitter Card -->
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "name": "Have NFL Rules Affected Concussion Rates?",
+  "headline": "Have NFL Rules Affected Concussion Rates?",
+  "datePublished": "2020-06-08 15:30:00-07:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Cameron Malloy",
+    "url": "/author/cameron-malloy.html"
+  },
+  "image": "/theme/images/post-bg.jpg",
+  "url": "/concussions.html",
+  "description": "Have the new NFL rules significantly reduced the number of concussions in a season? Or has the decrease just been random chance?"
+}
+</script>
+</head>
+<!-- TODO : Body class -->
+<body class="home-template">
+
+<nav id="menu">
+  <a class="close-button">Close</a>
+  <div class="nav-wrapper">
+    <p class="nav-label">Menu</p>
+    <ul>
+
+              <li role="presentation"><a href="/pages/about.html">About</a></li>
+
+    </ul>
+  </div>
+</nav>
+    <!-- Progressbar -->
+    <div class="progress-container">
+        <span class="progress-bar"></span>
+    </div>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header id="post-header" >
+      <div class="inner">
+        <nav id="navigation">
+            <span id="home-button" class="nav-button">
+                <a class="home-button" href="/" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+            </span>
+          <span id="menu-button" class="nav-button">
+            <a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+          </span>
+        </nav>
+        <h1 class="post-title">Have NFL Rules Affected Concussion Rates?</h1>
+        <!-- TODO : Proper class for headline -->
+        <span class="post-meta">
+                <a href="/author/cameron-malloy.html">Cameron Malloy</a>
+            | <time datetime="08 Jun 2020">08 Jun 2020</time>
+        </span>
+        <!-- TODO : Modified check -->
+      </div>
+    </header>
+
+  <section id="wrapper">
+    <a class="hidden-close"></a>
+
+    <!-- Post content -->
+    <main class="content" role="main">
+        <article class="post">
+        <div class="inner">
+            <section class="post-content">
+                <p><em>Have the new NFL rules significantly reduced the number of concussions in a season? Or has the decrease just been random chance?</em></p>
+<h2>Introduction</h2>
+<p>After the discovery of <a href="https://en.wikipedia.org/wiki/Chronic_traumatic_encephalopathy" target="_blank">CTE</a> by <a href="https://en.wikipedia.org/wiki/Bennet_Omalu" target="_blank">Dr. Bennet Omalu</a>, the NFL has been under scrutiny for dismissing the effects of concussions and it's relationship to CTE. Over the past couple of years, the league has started to make rules to help defend players in an attempt to decrease the number of concussions. In 2017 the implemented the <a href="https://en.wikipedia.org/wiki/Helmet-to-helmet_collision#:~:text=In%20the%20NFL%2C%20helmet%2Dto,of%2015%20yards%20for%20violations.&amp;text=In%202017%2C%20the%20NFL%20adopted,offenders%20out%20from%20the%20game." target="_blank">targeting</a> rule which fines and throws players out of the game for purposeful helmet-to-helmet collisions. After that they changed the <a href="https://www.sbnation.com/2018/5/22/17369774/nfl-kickoff-rule-change-explained" target="_blank">rules for kick offs</a> to make them safer, there was a pretty big decrease in the number of concussions in 2018. There have been some <a _target="_blank&quot;" href="https://www.nfl.com/news/nfl-sees-significant-drop-in-concussions-during-2018-season-0ap3000001013041">articles</a> touting this progress, but is this deserved? After a slight increase in 2019, it's not clear cut as to whether these changes had any effect at all. We'll discuss how effective these rules have been and how well the NFL has done with these rules.</p>
+<p>I first learned about these rules, especially the kickoff rules from <a href="https://www.youtube.com/watch?v=4W9WsYPEMHM" target="_blank">Pat McAfee's video about NFL rule changes in 2020</a>. It's a great video to see a former player's perspective to these rule changes.</p>
+<p>There have been rules put in place before 2017, however, the NFl only gives us data from 2012. Data before then may not be so great because concussion protocols and documenting concussions were more relaxed before then, so this is all the data I'm comfortable with analyzing.</p>
+<p>Download the <a href="/assets/concussions_assets/tests.Rmd">R-Notebook for the statistical tests in this blog posts. There are only code blocks for permutation and multivariate regression tests, no explanations/comments</a></p>
+<p>Download the <a href=./assets/concussions_assets/get_supplement_data.ipynb>Python Jupyter notebook to obtain supplemental data (see data section) for multivariate regression tests</a></p>
+<h2>Data</h2>
+<p>The NFL only has concussion data dating back to 2012 which can be found at <a href="https://www.playsmartplaysafe.com/newsroom/reports/injury-data/" target="_blank">playsmartplaysafe.com</a>. We'll only be working with the regular season totals shown below.</p>
+<p><img alt="img not found" src="/assets/concussions_assets/concussions_table.png">
+<figcaption markdown="span">
+Screenshot from <a href="https://www.playsmartplaysafe.com/newsroom/reports/injury-data/" target="_blank">playsmartplaysafe in 2020</a>
+</figcaption></p>
+<p>Later in the post will analyze possible confounding variables. Data for that analysis were statistics from <a href="https://www.pro-football-reference.com/" target="_blank">pro football reference</a></p>
+<h2>A/B Testing</h2>
+<ul>
+<p><li>
+<strong>Null Hypothesis:</strong> <em>The rules implemented post 2017 and post 2018 had no effect on the number of concussions in a regular season. Any differences are due to random chance</em>
+</li>
+<li>
+<strong>Alternative Hypothesis:</strong> <em>The rules were statistically significant in decreasing the number of concussions in the regular season</em>
+</li>
+<li>
+<strong>Statistic:</strong> <em>The statistic we'll be measuring is the average number of concussions before the rule changes minus the average number of concussions after the rule changes</em>
+</li></p>
+</ul>
+<p>I chose to carry out the A/B Test with a permutation tests. For those not familiar, we set up the null and alternative as above. Under the null, we assume that no matter the rule changes in any year, it doesn't effect the number of concussions, so we can permute the concussion numbers and associate them with different years, then compute the statistic. We repeat this 10,000 times and then we have an accurate distribution of the statistics look like under the null hypothesis. Then we can plot the actual statistic. If it's far off from the distribution created, then we can say that the null hypothesis is very unlikely and we'll sway toward the alternative.</p>
+<p>Since targeting was one of the first major rules to address concussions, we'll start there. The control group are the concussion values for the years 2012 to 2016, and the treatment is 2017 to 2019 (the treatment being rules to help mitigate concussions). Here's the resulting permutation test visualization.</p>
+<p><img alt="img not found" src="/assets/concussions_assets/2017_ab_test.jpg">
+<figcaption>
+Permutation test for concussions pre and post 2017 (2017 included in post). The blue line is the observed statistic
+</figcaption></p>
+<p>The blue line is the observed statistic found with the real NFl data. The graph clearly shows that reality is quite in line with the null hypothesis distribution created. In addition it has a <em>p-value of 0.39</em>. It's clear that we fail to reject the null hypothesis here.</p>
+<p>The NFL stated the concussion rule changes a great success after a pretty steep decrease in concussions in 2018, so I decided to see if the new rules they implemented for the 2018 season had any significant effect. Here's the permutation test visualization.</p>
+<p><img alt="img not found" src="/assets/concussions_assets/2018_ab_test.jpg">
+<figcaption>
+Permutation test for concussions pre and post 2018 (2018 included in post). The blue line is the observed statistic
+</figcaption></p>
+<p>Again, the blue line is the observed statistic. And while this fairs much better than the previous test, a <em>p-value of 0.145</em> doesn't meet the 90% or 95% confidence threshold. Again, we fail to reject the null hypothesis.</p>
+<p>This quick analysis shows that on the surface level, the change in concussions over recent years have been due to random chance. However, there is one caveate that we haven't given the NFL enough credit for.</p>
+<h2>Data Augmentation</h2>
+<p><img alt="img not found" src="/assets/concussions_assets/time_series.jpg"></p>
+<p>Above is the data we've been working with plotted as a time series. Notice the large dip in 2014. 2014 actually had by far, the largest number of unique players designated as "out" (injured and did not play for at least a game) of all the years analyzed at 605 players. The next closest year comes in at 470. It also had about the same number of kickoffs and plays as the other years. This huge drop in concussions is unprecedented. This is likely because of rule changes that resulted in players needing time to learn them, effecting their tackling. It could also be because player's were just more cautious (also because of rule changes or personal reasons), or teams were overly cautious. There could be more reasons or none of these reasons it's hard to tell, however, this dip in concussions is quite strange. Thus, I re-ran the A/B tests, but I changed the 2014 value to the mean of the concussions from 2012 to 2017 (the control and including 2014). This is a large change that doesn't necessarily reflect reality, but I think it's fun to see how this changes the statistical tests. I only ran the statistical test where the treatment were the years 2018 and 2019. It had a <em>p-value of 0.035</em> and its visualization is below.</p>
+<p><img alt="img not found" src="/assets/concussions_assets/2018_ab_test_augmented.jpg"></p>
+<p>So now it seems like the NFL rules had a big change, only if 2014 was a more normal year. But this comes with it's own challenges. Before I brushed over some of the assumptions A/B tests follow. They require that the only difference between the control and treatment groups is the treatment itself. In other words, no confounding variables. This wasn't necessary to state before because we didn't find anything statistically significant even with possible confounding variables present.</p>
+<p>3 notable confounding variables come to mind. The number of unique players who were injured, number of plays, and number of kickoffs over the course of the regular season.</p>
+<h2>Multivariate Regression</h2>
+<p>In multivariate regression, we can include the confounding variables and see if the variable we're analyzing really is a strong predictor of the number of concussions. Without the data augmentation, we find that no matter the combination of indicator variables for years (pre-exclusive and post-inclusive 2018) and confounding variables, we still don't find that the rules put in place are statisticallly significant in reducing the number of concussions.</p>
+<p><img alt="img not found" src="/assets/concussions_assets/lm_res.png">
+<figcaption>
+Result of R's Linear Model summary function on concussions data with the year indicator variable along with confounding variables. unique_outs: Unique players classified as "out" and did not play in a game because of injury, plays: number of plays, scores: number of scores (TDs and kickoffs) meant to resemble the number of kickoffs. All variables are regular season stats from pro-football-reference [see Data section above].
+</figcaption></p>
+<p>The <code>year_indicator</code> variable is what we're most interested in. It has a large standard error, so it's hard to say whether the estimate for this linear model is as estimated or should be 0. So in these terms, the NFL rules did not have much of an effect (if any at all) on the number of concussions in the regular season. However, how does it perform on the data with the outlier removed?</p>
+<p>As expected, it does much better. Combined with some confounding variables, such as only the unique number of players classified as "out" once in a season, it's a statistically significant predictor. However, when faced with mutliple confounding variables, it continues to miss the mark (i.e. it's hard to differentiate the estimate with 0 like before). So, depending on the confounding variables in reality, we can't say that the rules have significantly affected the decrease in concussions considering the data we have.</p>
+<p><img alt="img not found" src="/assets/concussions_assets/lm_res_aug.png">
+<figcaption>
+Result of R's Linear Model summary function on augmented concussions data with the year indicator variable along with confounding variables. unique_outs: Unique players classified as "out" and did not play in a game because of injury, plays: number of plays, scores: number of scores (TDs and kickoffs) meant to resemble the number of kickoffs. All variables are regular season stats from pro-football-reference [see Data section above].
+</figcaption></p>
+<h2>Conclusion</h2>
+<p>The short answer to this question is no, the NFL's rules haven't done enough to say that they are the reason concussions were down in recent years. There is an argument to be made for the NFL that the data we have is very small and it's hard to come to statistical conclusions with this little data. However, when dealing with something as big as CTE and protecting the players that make the league money, the NFL should be doing something with extreme noticeable impact to help them. I hope to see a larger drop in concussions soon. I hope this post is shown to be wrong in the near future.</p>
+            </section>
+
+            <section class="post-info">
+                <!-- <div class="post-share">
+                    <a class="twitter" href="https://twitter.com/share?text=Have NFL Rules Affected Concussion Rates?&amp;url=/concussions.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+                    </a>
+                    <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=/concussions.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+                    </a>
+                    <a class="googleplus" href="https://plus.google.com/share?url=/concussions.html" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+                    </a>
+                    <div class="clear"></div>
+                </div> -->
+
+                <aside class="post-tags">
+<a href="/tag/causality-tests.html">Causality Tests</a><a href="/tag/permutation-testing.html">Permutation Testing</a><a href="/tag/multivariate-regression.html">Multivariate Regression</a>                </aside>
+
+                <div class="clear"></div>
+
+                <!--  -->
+
+                </section>
+
+                <!--  -->
+
+                <div class="clear"></div>
+                <div class="space-`4em"></div>
+                <aside class="post-nav">
+
+                    <a class="post-nav-prev" href="/ba-sentiment.html">
+                        <section class="post-nav-teaser">
+                            <i class="ic ic-arrow-left"></i>
+                                <h2 class="post-nav-title">Bay Area Twitter Sentiment During a Pandemic</h2>
+                            <p class="post-nav-excerpt">What is the overall sentiment of the bay area? What is the distribution of this...</p>
+                        </section>
+                    </a>
+                    <!--                     <div class="clear"></div> -->
+                </aside>
+
+            </div>
+        </article>
+    </main>
+      <!-- TODO : Body class -->
+    <div id="body-class" style="display: none;" class=""></div>
+
+    <footer id="footer">
+      <div class="inner">
+        <section class="credits">
+
+
+          <span class="credits-theme"><a href="https://github.com/cameronmalloy" rel="nofollow" target="_blank">Cameron Malloy</a></span>
+          <span class="credits-software">Personal Website</span>
+        </section>
+      </div>
+    </footer>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/theme/js/script.js"></script>
+
+</body>
+</html>
