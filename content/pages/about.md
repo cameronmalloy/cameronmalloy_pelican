@@ -22,7 +22,7 @@ The cliché statement everyone uses is that data tells a story, but it's also mo
 
 ### What I've Done
 #### Teaching
-*I've TA'd [CS61A](https://cs61a.org/) and [CS88](https://cs88-website.github.io/) at UC Berkeley. I was an [Outstanding (under)Graduate Student Instructor](https://gsi.berkeley.edu/programs-services/award-programs/ogsi/ogsi-2020/) as well! I also tutored [stem courses at Cañada College](https://www.canadacollege.edu/stemcenter/tutoring.php), and [taught middle schoolers how to code](https://technovationchallenge.org/).*
+*I've TA'd [CS61A](https://cs61a.org/){target="_blank"} and [CS88](https://cs88-website.github.io/){target="_blank"} at UC Berkeley. I was an [Outstanding (under)Graduate Student Instructor](https://gsi.berkeley.edu/programs-services/award-programs/ogsi/ogsi-2020/){target="_blank"} as well! I also tutored [stem courses at Cañada College](https://www.canadacollege.edu/stemcenter/tutoring.php){target="_blank"}, and [taught middle schoolers how to code](https://technovationchallenge.org/){target="_blank"}.*
 
 I love teaching! There are a lot of struggles that come with teaching, but I love teaching for the moments where I push a student just enough to where they get to the answer on their own. When their face goes from despair and heartbreak, from working on some recursive tree problem for hours, to the biggest smile and widest eyes possible.
 
@@ -30,7 +30,7 @@ I can't tell you how many times I've screwed this up though. I accidentally give
 
 
 #### Data Science
-*I've interned with Proofpoint, worked with [Apigee](https://cloud.google.com/apigee), and held research at [San Francisco State University](http://www.sfsu-icelab.org/).*
+*I've interned with Proofpoint, worked with [Apigee](https://cloud.google.com/apigee){target="_blank"}, and held research at [San Francisco State University](http://www.sfsu-icelab.org/){target="_blank"}.*
 
 - Proofpoint: Very very big and scary **security** data. Built a compromised email account detection system
 - Apigee: Small-medium sized, very messy and sometimes inconsistent **marketing and sales** data. Created a propensity to buy/expand algorithm.
@@ -38,10 +38,10 @@ I can't tell you how many times I've screwed this up though. I accidentally give
 
 These are the really cool classes I've taken that have helped me with all the work I've done above:
 
-- [CS 189](https://people.eecs.berkeley.edu/~jrs/papers/machlearn.pdf): Machine Learning
-- [CS 182](https://www2.eecs.berkeley.edu/Courses/CS182/): Deep Neural networks
+- [CS 189](https://people.eecs.berkeley.edu/~jrs/papers/machlearn.pdf){target="_blank"}: Machine Learning
+- [CS 182](https://www2.eecs.berkeley.edu/Courses/CS182/){target="_blank"}: Deep Neural networks
 - Stat 135: Hypothesis Testing
 - Stat 153: Time Series
-- [Prob 140](http://prob140.org/): Probability for Data Science
-- [CP 101](http://www.cp101.org/): Urban Data Analytics
+- [Prob 140](http://prob140.org/){target="_blank"}: Probability for Data Science
+- [CP 101](http://www.cp101.org/){target="_blank"}: Urban Data Analytics
 - Math C103: Mathematical Economics
