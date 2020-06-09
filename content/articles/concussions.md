@@ -2,9 +2,9 @@ Title: Have NFL Rules Affected Concussion Rates?
 Date: 2020-06-08 15:30
 Author: Cameron Malloy
 Category: Data Science
-Tags: Permutation Testing
+Tags: Causality Tests, Permutation Testing, Multivariate Regression
 Slug: concussions
-Summary: What is the overall sentiment of the bay area? What is the distribution of this sentiment? What are people happy or sad about in a given area? The San Francisco Bay Area is home to a very diverse population. There are many different people from different racial profiles.
+Summary: Have the new NFL rules significantly reduced the number of concussions in a season? Or has the decrease just been random chance?
 Postid: 1
 
 *Have the new NFL rules significantly reduced the number of concussions in a season? Or has the decrease just been random chance?*
@@ -12,6 +12,8 @@ Postid: 1
 ## Introduction
 
 After the discovery of [CTE](https://en.wikipedia.org/wiki/Chronic_traumatic_encephalopathy){target="_blank"} by [Dr. Bennet Omalu](https://en.wikipedia.org/wiki/Bennet_Omalu){target="_blank"}, the NFL has been under scrutiny for dismissing the effects of concussions and it's relationship to CTE. Over the past couple of years, the league has started to make rules to help defend players in an attempt to decrease the number of concussions. In 2017 the implemented the [targeting](https://en.wikipedia.org/wiki/Helmet-to-helmet_collision#:~:text=In%20the%20NFL%2C%20helmet%2Dto,of%2015%20yards%20for%20violations.&text=In%202017%2C%20the%20NFL%20adopted,offenders%20out%20from%20the%20game.){target="_blank"} rule which fines and throws players out of the game for purposeful helmet-to-helmet collisions. After that they changed the [rules for kick offs](https://www.sbnation.com/2018/5/22/17369774/nfl-kickoff-rule-change-explained){target="_blank"} to make them safer, there was a pretty big decrease in the number of concussions in 2018. There have been some [articles](https://www.nfl.com/news/nfl-sees-significant-drop-in-concussions-during-2018-season-0ap3000001013041){"target=_blank"} touting this progress, but is this deserved? After a slight increase in 2019, it's not clear cut as to whether these changes had any effect at all. We'll discuss how effective these rules have been and how well the NFL has done with these rules.
+
+I first learned about these rules, especially the kickoff rules from [Pat McAfee's video about NFL rule changes in 2020](https://www.youtube.com/watch?v=4W9WsYPEMHM){target="_blank"}. It's a great video to see a former player's perspective to these rule changes.
 
 There have been rules put in place before 2017, however, the NFl only gives us data from 2012. Data before then may not be so great because concussion protocols and documenting concussions were more relaxed before then, so this is all the data I'm comfortable with analyzing.
 
@@ -62,7 +64,7 @@ The NFL stated the concussion rule changes a great success after a pretty steep 
 Permutation test for concussions pre and post 2018 (2018 included in post). The blue line is the observed statistic
 </figcaption>
 
-Again, the blue line is the observed statistic. And while this fairs much better than the previous test, a *p-value of 0.147* doesn't meet the 90% or 95% confidence threshold. Again, we fail to reject the null hypothesis.
+Again, the blue line is the observed statistic. And while this fairs much better than the previous test, a *p-value of 0.145* doesn't meet the 90% or 95% confidence threshold. Again, we fail to reject the null hypothesis.
 
 This quick analysis shows that on the surface level, the change in concussions over recent years have been due to random chance. However, there is one caveate that we haven't given the NFL enough credit for.
 
