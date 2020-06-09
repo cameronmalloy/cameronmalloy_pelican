@@ -39,4 +39,6 @@ DEFAULT_PAGINATION = False
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
+GOOGLE_ANALYTICS = 'UA-168820719-1'
+
 THEME = 'pelican-themes/attila'
